@@ -139,8 +139,8 @@ if uploaded_file:
             # 根据预测类别统计健康和患病人数
             healthy_count = (predictions_d == 0).sum()
             diseased_count = (predictions_d == 1).sum()
-            remitter_count = (results["Treatment outcome prediction results"] == 0).sum()
-            non_remitter_count = (results["Treatment outcome prediction results"] == 1).sum()
+            remitter_count = (results["Treatment results (0:remission,1:non-remission)"] == 0).sum()
+            non_remitter_count = (results["Treatment results (0:remission,1:non-remission)"] == 1).sum()
             
             st.write(f"Number of healthy samples：{healthy_count}")
             st.write(f"Number of MDD samples：{diseased_count}")
@@ -148,6 +148,7 @@ if uploaded_file:
             st.write(f"Number of non-remitters in MDD samples：{non_remitter_count}")
 else:
     st.write("Upload NIR spectral data file on the left.")
+
 
 
 
