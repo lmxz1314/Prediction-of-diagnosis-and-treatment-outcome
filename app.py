@@ -114,8 +114,8 @@ if uploaded_file:
             st.write("Results：")
             results = pd.DataFrame({
                 "Sample ID": range(1, len(predictions_d) + 1),
-                "Predicted probability of MDD": abs(probabilities_d).round(2),
-                "Predicted diagnostic results": predictions_d                
+                "Probability of MDD": abs(probabilities_d).round(2),
+                "Diagnostic results (0:HC,1:MDD)": predictions_d                
             })
             # 初始化空列
             treatment_results = []
@@ -131,8 +131,8 @@ if uploaded_file:
                     cure_probabilities.append("/")
             
             # 添加到 DataFrame
-            results["Predicted probability of treatment outcome"] = cure_probabilities
-            results["Treatment outcome prediction results"] = treatment_results            
+            results["Probability of non-remission"] = cure_probabilities
+            results["Treatment results (0:remission,1:non-remission)"] = treatment_results            
             #st.write(results)
             st.dataframe(results, use_container_width=True)
 
@@ -148,5 +148,6 @@ if uploaded_file:
             st.write(f"Number of non-remitters in MDD samples：{non_remitter_count}")
 else:
     st.write("Upload NIR spectral data file on the left.")
+
 
 
