@@ -149,21 +149,3 @@ if uploaded_file:
 else:
     st.write("Upload NIR spectral data file on the left.")
 
-st.markdown("""
-    <style>
-    /* 全局字体和字号 */
-    html, body, [class*="css"]  {
-        font-family: 'Times New Roman', serif;
-        font-size: 22px;
-    }
-    /* 表格字体 */
-    .dataframe, .dataframe th, .dataframe td {
-        font-family: 'Times New Roman', serif;
-        font-size: 22px;
-    }
-    /* matplotlib 图中文字 */
-    .stPlotly {
-        font-family: 'Times New Roman', serif;
-    }
-    </style>
-""", unsafe_allow_html=True)
