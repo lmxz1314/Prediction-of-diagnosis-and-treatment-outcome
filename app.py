@@ -68,7 +68,7 @@ if uploaded_file:
     input_data = pd.read_csv(uploaded_file,index_col=0,header=0)
     with col1:
         st.write("Near-infrared Spectral Data：")
-        st.write(input_data, use_container_width=True, height=400)
+        st.dataframe(input_data, use_container_width=True)
 
     # 确保数据维度与模型的输入一致
     if input_data.shape[1] != 1582:
@@ -148,4 +148,5 @@ if uploaded_file:
             st.write(f"Number of non-remitters in MDD samples：{non_remitter_count}")
 else:
     st.write("Upload NIR spectral data file on the left.")
+
 
