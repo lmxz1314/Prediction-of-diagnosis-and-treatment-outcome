@@ -10,7 +10,7 @@ import joblib  # 用于加载训练好的模型
 # 页面设置
 st.set_page_config(page_title="NIR-based MDD Diagnosis and treatment outcome prediction",layout="wide")
 # 设置页面标题
-st.title("NIR-Based Diagnostic and Antidepressant Treatment Response Prediction System for MDD")
+st.title("NIR-Based Diagnostic and Treatment Outcome Prediction System for MDD")
 
 # 提示用户上传红外光谱数据
 st.sidebar.header("Upload the spectral file")
@@ -68,7 +68,7 @@ if uploaded_file:
     input_data = pd.read_csv(uploaded_file,index_col=0,header=0)
     with col1:
         st.write("Near-infrared Spectral Data：")
-        st.dataframe(input_data, use_container_width=True, height=400)
+        st.write(input_data, use_container_width=True, height=400)
 
     # 确保数据维度与模型的输入一致
     if input_data.shape[1] != 1582:
@@ -131,7 +131,7 @@ if uploaded_file:
                     cure_probabilities.append("/")
             
             # 添加到 DataFrame
-            results["Predicted probability of treatment response"] = cure_probabilities
+            results["Predicted probability of treatment outcome"] = cure_probabilities
             results["Treatment outcome prediction results"] = treatment_results            
             #st.write(results)
             st.dataframe(results, use_container_width=True)
@@ -140,10 +140,30 @@ if uploaded_file:
             healthy_count = (predictions_d == 0).sum()
             diseased_count = (predictions_d == 1).sum()
             remitter_count = (results["Treatment outcome prediction results"] == 0).sum()
+            non_remitter_count = (results["Treatment outcome prediction results"] == 1).sum()
             
             st.write(f"Number of healthy samples：{healthy_count}")
             st.write(f"Number of MDD samples：{diseased_count}")
-            st.write(f"Number of MDD samples with positive response to antidepressant treatment：{remitter_count}")
+            st.write(f"Number of remitters in MDD samples：{remitter_count}")
+            st.write(f"Number of non-remitters in MDD samples：{non_remitter_count}")
 else:
     st.write("Upload NIR spectral data file on the left.")
 
+st.markdown("""
+    <style>
+    /* 全局字体和字号 */
+    html, body, [class*="css"]  {
+        font-family: 'Times New Roman', serif;
+        font-size: 22px;
+    }
+    /* 表格字体 */
+    .dataframe, .dataframe th, .dataframe td {
+        font-family: 'Times New Roman', serif;
+        font-size: 22px;
+    }
+    /* matplotlib 图中文字 */
+    .stPlotly {
+        font-family: 'Times New Roman', serif;
+    }
+    </style>
+""", unsafe_allow_html=True)
